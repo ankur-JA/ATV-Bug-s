@@ -54,7 +54,7 @@ http://169.254.169.254/latest/meta-data/
 
 **Testing Methodology:**
 
-1. **   Identify Potential Entry Points:**
+1.    Identify Potential Entry Points:
         ● Look for functionalities that involve fetching data from remote resources. This includes features like:
             ○ Image processing or resizing services that fetch images from user-provided URLs.
             ○ Content aggregation services that fetch articles or news from external sources.
@@ -63,17 +63,17 @@ http://169.254.169.254/latest/meta-data/
             ○ Social media integrations that fetch data from external platforms.
             ○ XML parsers or other services that process data from remote sources.
 
-2. **   Craft SSRF Payloads:**
-**        ● Basic SSRF:**
+2.   Craft SSRF Payloads:
+        ● Basic SSRF:
             ○ Replace the original URL with a URL pointing to a server you control:
 
             http://your-server.com/test.txt
 
             Observe if your server receives a request from the target application's IP address.
-**        ● Blind SSRF:**
+        ● Blind SSRF:
             ○ If you can't see the response directly, try using a service like Burp Collaborator or Interactsh to capture out-of-band interactions.
             ○ Send a request to a Burp Collaborator URL and see if the target application interacts with it.
-**        ● SSRF to Localhost/Internal Network:**
+        ● SSRF to Localhost/Internal Network:
             ○ Replace the original URL with a URL pointing to localhost or an internal IP address:
 
             http://localhost/admin
@@ -81,29 +81,29 @@ http://169.254.169.254/latest/meta-data/
             http://192.168.0.1/
 
             Look for responses that reveal internal services or information.
-**        ● SSRF to Cloud Metadata Endpoints:**
+       ● SSRF to Cloud Metadata Endpoints:
             ○ Replace the original URL with the cloud provider's metadata endpoint:
 
             http://169.254.169.254/latest/meta-data/
 
             If vulnerable, the application might leak sensitive information like access keys or instance IDs.
 
-3. **    Bypass Techniques:**
--  **       URL Encoding:** Encode special characters in the URL to bypass filters.
--    **     Alternative IP Representations: **Use decimal, octal, or hexadecimal representations of IP addresses to bypass filters.
--  **       DNS Rebinding: **Use a domain that resolves to different IP addresses over time to bypass restrictions based on domain names.
+3. Bypass Techniques:
+-  URL Encoding:Encode special characters in the URL to bypass filters.
+-  Alternative IP Representations: Use decimal, octal, or hexadecimal representations of IP addresses to bypass filters.
+-  DNS Rebinding: Use a domain that resolves to different IP addresses over time to bypass restrictions based on domain names.
 
 **Real-World Examples:**
 
--  **   ● Image Processing Service: **An image processing service allows users to upload images from URLs. An attacker could provide a URL pointing to an internal server, potentially revealing sensitive files or configurations.
--  **   ● Webhooks:** A webhook functionality allows users to specify a URL to be notified of events. An attacker could provide a URL pointing to an internal API endpoint, triggering actions or leaking data.
-- **    ● XML Parser: **An XML parser that fetches external entities could be exploited to read local files or make requests to internal services.
+-  ● Image Processing Service: An image processing service allows users to upload images from URLs. An attacker could provide a URL pointing to an internal server, potentially revealing sensitive files or configurations.
+-  ● Webhooks: A webhook functionality allows users to specify a URL to be notified of events. An attacker could provide a URL pointing to an internal API endpoint, triggering actions or leaking data.
+- ● XML Parser: An XML parser that fetches external entities could be exploited to read local files or make requests to internal services.
 
 **Tools:**
 
--  **   ● Burp Suite:** Use Burp Suite's proxy and repeater features to intercept and modify requests.
--  **   ● SSRFmap: **An automated SSRF fuzzing tool.
-- **    ● Kiterunner:** Another automated SSRF testing tool.
--  **   ● ffuf:** A fast web fuzzer for finding hidden parameters and endpoints.
+-  ● Burp Suite: Use Burp Suite's proxy and repeater features to intercept and modify requests.
+-     ● SSRFmap: An automated SSRF fuzzing tool.
+-     ● Kiterunner: Another automated SSRF testing tool.
+-     ● ffuf: A fast web fuzzer for finding hidden parameters and endpoints.
 
 Always test for SSRF vulnerabilities in a safe and controlled environment. Never exploit vulnerabilities on systems you don't have permission to test.
