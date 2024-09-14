@@ -126,3 +126,45 @@ http://169.254.169.254/latest/meta-data/
 ---
 
 Always test for SSRF vulnerabilities in a safe and controlled environment. Never exploit vulnerabilities on systems you don't have permission to test.
+
+
+## SSRF to Internal Services:
+
+- **Scenario:** A web application has a feature to fetch product information from an internal API. The API endpoint is accessible only within the company's network.
+- **Payload:** Replace the external product URL with the internal API endpoint (e.g., `http://internal-api.company.com/product/123`).
+- **Expected Result:** If vulnerable, the application might return sensitive data from the internal API, such as product prices, inventory levels, or even internal user information.
+
+## SSRF to Backend Systems:
+
+- **Scenario:** A web application uses a backend system like Redis or Memcached for caching or data storage. These systems typically listen on a local port and are not intended to be accessible from the internet.
+- **Payload:** Construct a URL that targets the backend system's port and try to interact with it using the application's functionality. For example:
+  - **Redis:** `redis://127.0.0.1:6379`
+  - **Memcached:** `memcached://127.0.0.1:11211`
+- **Expected Result:** If vulnerable, the application might leak sensitive data stored in the backend system or allow the attacker to execute commands on the server.
+
+## SSRF to Cloud Metadata Endpoints:
+
+- **Scenario:** A web application is hosted on a cloud provider like AWS, Azure, or Google Cloud. These providers have metadata endpoints that contain sensitive information about the instance, such as credentials, access keys, and network configuration.
+- **Payloads:**
+  - **AWS:** `http://169.254.169.254/latest/meta-data/`
+  - **Azure:** `http://169.254.169.254/metadata/instance?api-version=2020-09-01`
+  - **Google Cloud:** `http://metadata.google.internal/computeMetadata/v1/`
+- **Expected Result:** If vulnerable, the application might leak sensitive cloud metadata, potentially allowing an attacker to compromise the entire cloud infrastructure.
+
+## SSRF in File Wrappers:
+
+- **Scenario:** A web application uses PHP's file wrappers (`php://`, `file://`, `data://`) to handle file operations.
+- **Payloads:**
+  - `php://filter/read=convert.base64-encode/resource=/etc/passwd` (read and encode the `/etc/passwd` file)
+  - `data://text/plain,<?php system('id'); ?>` (execute the `id` command)
+- **Expected Result:** If vulnerable, the application might execute arbitrary code or leak sensitive file contents.
+
+## Bypassing SSRF Filters:
+
+- **Open Redirects:** Chain an SSRF with an open redirect vulnerability to bypass restrictions on allowed domains.
+- **Typosquatting/Homoglyphs:** Use similar-looking domains (e.g., `rnaliy.com` instead of `paypal.com`) to trick the application into making requests to malicious servers.
+- **Alternative IP Representations:** Use decimal, octal, or hexadecimal representations of IP addresses to bypass filters that only check for dotted decimal notation.
+
+---
+
+These are just a few examples. SSRF vulnerabilities can be found in various functionalities and contexts. By understanding the different types of SSRF attacks and testing for them creatively, you can uncover critical vulnerabilities and earn substantial bounties.
