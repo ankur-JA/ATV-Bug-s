@@ -53,3 +53,10 @@ SSRF vulnerabilities arise when a web application fetches a remote resource with
 http://localhost/admin
 http://127.0.0.1:8080/
 http://169.254.169.254/latest/meta-data/
+
+#### Mitigating SSRF Attacks
+
+- **Whitelist Allowed URLs**: Only allow requests to a pre-approved list of safe URLs.
+- **Validate User Input**: Sanitize and validate all user-supplied input that is used to fetch remote resources.
+- **Network Segmentation**: Isolate internal services from the internet to prevent unauthorized access.
+- **Disable Unused Protocols**: Disable protocols that are not needed by the application, such as `gopher://` or `file://`.
