@@ -8,10 +8,10 @@ SSRF vulnerabilities arise when a web application fetches a remote resource with
 
 **The Anatomy of an SSRF Attack**
 
-    - **User Input**: The attacker provides a URL or other identifier as input to the web application, specifying a resource to be fetched.
-    - **Unvalidated Input**: The web application fails to properly validate or sanitize the input, allowing the attacker to control the target of the request.
-    - **Server-Side Request**: The web application makes a request to the attacker-supplied URL on behalf of the server.
-    - **Attacker's Gain**: The attacker can now access resources that are normally inaccessible from the outside, such as internal services, backend APIs, or cloud metadata endpoints.
+- **User Input**: The attacker provides a URL or other identifier as input to the web application, specifying a resource to be fetched.
+- **Unvalidated Input**: The web application fails to properly validate or sanitize the input, allowing the attacker to control the target of the request.
+- **Server-Side Request**: The web application makes a request to the attacker-supplied URL on behalf of the server.
+- **Attacker's Gain**: The attacker can now access resources that are normally inaccessible from the outside, such as internal services, backend APIs, or cloud metadata endpoints.
 
 **Types of SSRF Attacks**
 
