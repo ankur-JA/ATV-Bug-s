@@ -15,20 +15,20 @@ SSRF vulnerabilities arise when a web application fetches a remote resource with
 
 **Types of SSRF Attacks**
 
-    **1. Basic SSRF:** The attacker can access any publicly accessible resource on the internet.
-    **2. Blind SSRF:** The attacker cannot see the response of the server-side request, but can still infer information based on the application's behavior.
-    **3. SSRF with Authentication Bypass:** The attacker can bypass authentication mechanisms to access restricted resources.
-    **4. SSRF to Localhost:** The attacker can access services running on the same server as the web application.
-    **5. SSRF to Cloud Metadata Endpoints:** The attacker can access sensitive information stored in cloud metadata services.
+-    **1. Basic SSRF:** The attacker can access any publicly accessible resource on the internet.
+-    **2. Blind SSRF:** The attacker cannot see the response of the server-side request, but can still infer information based on the application's behavior.
+-   **3. SSRF with Authentication Bypass:** The attacker can bypass authentication mechanisms to access restricted resources.
+-    **4. SSRF to Localhost:** The attacker can access services running on the same server as the web application.
+-    **5. SSRF to Cloud Metadata Endpoints:** The attacker can access sensitive information stored in cloud metadata services.
 
 **Impact of SSRF Attacks**
 
 SSRF attacks can have severe consequences, including:
 
-    **○ Port Scanning:** Attackers can scan internal networks to discover open ports and services.
-    **○ Service Discovery:** Attackers can identify internal services that are not meant to be exposed to the internet.
-    **○ Information Disclosure:** Attackers can access sensitive data, such as configuration files, source code, or internal APIs.
-    **○ Remote Code Execution (RCE):** In some cases, attackers can leverage SSRF to execute arbitrary code on the server.
+-    **○ Port Scanning:** Attackers can scan internal networks to discover open ports and services.
+-   **○ Service Discovery:** Attackers can identify internal services that are not meant to be exposed to the internet.
+-    **○ Information Disclosure:** Attackers can access sensitive data, such as configuration files, source code, or internal APIs.
+-    **○ Remote Code Execution (RCE):** In some cases, attackers can leverage SSRF to execute arbitrary code on the server.
 
 **Identifying and Exploiting SSRF Vulnerabilities**
 
