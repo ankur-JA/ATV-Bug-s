@@ -252,14 +252,22 @@ This is one incredible tool in comparison to the collaborator.
 
 In my view, you should check all four of these methods because occasionally they block the burp and netcat in order to prevent problems.
 
-### Basic Lab for PortSwigger SSRF
+## Prevention
 
-[PortSwigger Lab - Basic SSRF](https://portswigger.net/web-security/ssrf/lab-basic-ssrf-against-localhost).
+1. Allowlist
+2. Blacklist
 
-Let's now proceed to the basic PortSwigger SSRF lab in order to illustrate this weakness.
+### Allowlist
 
-A stock check feature in this lab retrieves information from an internal system.
+When SSRF protection is achieved through the use of an **allowlist** technique, the trusted and authorized target resources or endpoints that the server is able to connect with must be clearly specified. This implies that requests will be prevented or denied for any other resources; only requests to the resources that have been pre-approved will be accepted.
 
-Change the stock check URL to `http://localhost/admin` to access the admin interface and remove the user `carlos` in order to complete the lab.
+You can designate a range of secure and reliable URLs or IP addresses, for instance, that the server is allowed to visit. Requests to these approved IP addresses or URLs from the server will be accepted; requests to unlisted or disapproved resources will be returned unanswered.
 
-To count the stock of that product, first access the stock check functionality (during testing, you must comprehend the functionality).
+### Blacklist
+
+A **blacklist** technique can be used in addition to an allowlist to prohibit malicious or known vulnerable URLs, IP addresses, or domains that are frequently connected to SSRF attacks. A list of entities that the server should not be allowed to access is contained in the blacklist.
+
+Every so often, new threats or vulnerabilities that are found can be added to the blacklist. In order to stop SSRF attacks from focusing on those particular resources, requests sent to these blacklisted entities will either be denied or stopped.
+
+The allowlist and blacklist techniques can be combined to provide a multi-layered defense against SSRF attacks. While the blacklist aids in blocking known harmful or vulnerable resources, the allowlist guarantees that only authorized and trusted resources are accessed.
+
