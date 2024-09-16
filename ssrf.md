@@ -168,3 +168,98 @@ Always test for SSRF vulnerabilities in a safe and controlled environment. Never
 ---
 
 These are just a few examples. SSRF vulnerabilities can be found in various functionalities and contexts. By understanding the different types of SSRF attacks and testing for them creatively, you can uncover critical vulnerabilities and earn substantial bounties.
+
+## Exploiting and Learning SSRF
+
+We will talk about the SSRF vulnerability, which is classified as critical or high severity in bug bounty programs. I will also go over various testing techniques for swiftly locating SSRFs, and we will conclude with a rudimentary SSRF PortSwigger lab.
+
+### SSRF: What is it?
+
+Server-Side Request Forgery, or SSRF, is a technique that enables an attacker to send a forged request to a server that is vulnerable in order to send an unexpected request to an internal server and obtain access to that internal server.
+
+The attacker can connect to the internal server through the public server (trusted server) by using this SSRF vulnerability.
+
+Because the website's internal server typically won't accept requests directly from users or attackers, but it will allow requests made from the internal server to the public-facing server (which is accessible by anyone).
+
+### In what way do you define "internal server"?
+
+Consider any website, such as Instagram, Facebook, or YouTube, where you can sign in by entering your username and password. Now, because only that website has access to an internal database, how does this website verify that your username and password are correct?
+
+This is known as SSRF when an attacker uses a public website to seek access to a remote internal database, provided the database is available.
+
+The scenario above is only an illustration of the different types of SSRFs; it is not a confirmation of the internal server.
+
+### There are two varieties of SSRFs.
+
+1. Standard SSRF
+2. Blind SSRF
+
+### Standard SSRF
+
+An attacker can send queries to internal resources from the targeted server and directly receive the responses in a standard SSRF vulnerability. This implies that the attacker has access to the response's content, which they can use to ascertain whether the SSRF vulnerability is present and perhaps extract sensitive data.
+
+### Blind SSRF
+
+An attacker can also send requests to internal resources through a blind SSRF vulnerability, although they do not receive the answers directly. This could be the result of a number of things, like security mechanisms blocking the response or the server not providing the attacker with the response. Blind SSRF is still a vulnerability even when it doesn't get the responses directly because it lets the attacker interact with internal resources, potentially exploiting other vulnerabilities or carrying out destructive operations inadvertently.
+
+### Finding SSRF
+
+The best method to identify SSRF is to examine the website's source code, although it's still okay if you can't access that.
+
+### Spot feature that is vulnerable to SSRF.
+
+1. Less visible locations that are contained in files, such as PDFs or XML, can frequently cause an SSRF.
+
+   **Note:** Most testers didn't like this location.
+
+2. The input that is placed inside the HTML tag.
+
+3. Determine the functionality that an application action needs in order to cause another action.
+
+4. Verify the concealed API within the message body (Post request).
+
+### Possible Location for SSRF
+    
+1. XML, PDF, or Documents (This most obscure characteristic)
+2. File upload, proxy, and webhook services
+
+### Next, use internal IPs to confirm that vulnerability.
+
+Initially, check if any interactions are resurfacing in the poll or log if you have access to Burpsuite Pro or Ngrok.
+
+Common IP: `10.0.0.1` and `127.0.0.1` for localhost.
+
+[Reserved IP Address List](https://en.wikipedia.org/wiki/Reserved_IP_addresses).
+
+### Verify the response
+
+1. It is a standard SSRF if you receive a response claiming that private or banner data has been leaked.
+2. If you don't hear back, proceed to the blind SSRF.
+
+### Outside the Band Methods
+
+Some out-of-band techniques exist to detect Blind SSRF; however, we must have the server's interaction in order to do so.
+
+First, configure the server to receive the log or interaction. Occasionally, during that exchange, the banner data in your log is disclosed.
+
+1. Burpsuite Pro Collaborator
+2. Hosting the website on online services like Godaddy
+3. Netcat
+4. Ngrok
+5. If you don’t have the burp collaborator, don’t worry, use this interactsh: [https://github.com/projectdiscovery/interactsh](https://github.com/projectdiscovery/interactsh)
+
+This is one incredible tool in comparison to the collaborator.
+
+In my view, you should check all four of these methods because occasionally they block the burp and netcat in order to prevent problems.
+
+### Basic Lab for PortSwigger SSRF
+
+[PortSwigger Lab - Basic SSRF](https://portswigger.net/web-security/ssrf/lab-basic-ssrf-against-localhost).
+
+Let's now proceed to the basic PortSwigger SSRF lab in order to illustrate this weakness.
+
+A stock check feature in this lab retrieves information from an internal system.
+
+Change the stock check URL to `http://localhost/admin` to access the admin interface and remove the user `carlos` in order to complete the lab.
+
+To count the stock of that product, first access the stock check functionality (during testing, you must comprehend the functionality).
