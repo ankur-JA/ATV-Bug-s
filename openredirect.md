@@ -149,8 +149,25 @@ By limiting referrer URL exposure with an appropriate `Referrer-Policy` header, 
 ---
 
 ### **Common Routes Around:**
+# URLs
 
-file://yoururl.com////yoururl.com//yoururl.com//yoururl.com//theirsite@yoursite.com///yoursite.comhttps://yoursite.com%3F.theirsite.com/https://yoursite.com%2523.theirsite.com/https://yoursite?c=.theirsite.com/https://yoursite.com#.theirsite.com/https://yoursite.com\.thersite.com///%2F/yoursite.com////yoursite.comhttps://theirsite.computer/
+Here is a list of URLs:
+
+1. \/yoururl.com
+2. \/\/yoururl.com
+3. \\yoururl.com
+4. //yoururl.com
+5. //theirsite@yoursite.com
+6. /\/yoursite.com
+7. [https://yoursite.com%3F.theirsite.com/](https://yoursite.com%3F.theirsite.com/)
+8. [https://yoursite.com%2523.theirsite.com/](https://yoursite.com%2523.theirsite.com/)
+9. [https://yoursite?c=.theirsite.com/](https://yoursite?c=.theirsite.com/)
+10. [https://yoursite.com#.theirsite.com/](https://yoursite.com#.theirsite.com/)
+11. [https://yoursite.com\.thersite.com/](https://yoursite.com\.thersite.com/)
+12. // %2F/yoursite.com
+13. ////yoursite.com
+14. [https://theirsite.computer/](https://theirsite.computer/)
+
 
 
 
